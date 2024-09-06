@@ -2,6 +2,8 @@ body{
     margin: 0;
     font-family: 'Montserrat';
     color: #101632dd;
+    animation: background-body both;
+    animation-timeline: scroll();
 }
 
 * {
@@ -18,13 +20,12 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    container-type: inline-size;
-    container-name: header;
     position: sticky;
     z-index: 10;
     text-align: center;
     font-size: 18px;
     top: 0;
+    color: #48e;
 }
 
 .header__checkbox{
@@ -47,6 +48,7 @@ body{
     max-width: 100%;
     width: 64px;
     margin: 10px 20px;
+    filter: drop-shadow(0 0 5px #0006);
 }
 
 .header__nav {
@@ -72,7 +74,7 @@ body{
 }
 
 .header__nav-item a{
-    color: #48e;
+    color: inherit;
 }
 
 .header__nav-item a:not(:is(:hover, :active)){
@@ -81,13 +83,21 @@ body{
 
 /* -------- HEADER QUERIES -------- */
 
-@container header (min-width: 600px){
+@media screen and (min-width: 600px){
+    .header{
+        padding: 10px 0;
+        animation: adapt-nav both;
+        animation-timeline: scroll();
+        animation-range: 10px 300px;
+    }
+
     .header__nav{
         display: block;
         position: static;
         height: auto;
         width: auto;
         justify-content: space-between;
+        background-color: initial;
     }
 
     .header__nav-list{
@@ -101,6 +111,14 @@ body{
     .header__open-nav-button{
         display: none;
     }
+
+    .header__logo{
+        translate: 30px;
+        scale: 2;
+        animation: logo both;
+        animation-timeline: scroll();
+        animation-range: 10px 300px;
+    }
 }
 
 /* -------- HEADER ENDS -------- */
@@ -109,6 +127,7 @@ body{
 /* -------- PROFILE SECTION -------- */
 
 .profile{
+    background-color: #c1cff2;
     container-name: profile;
     container-type: inline-size;
 }
@@ -192,6 +211,7 @@ body{
         background-color: transparent;
         height: 90vh;
         margin: auto;
+        animation: aparecer 2s .2s both;
     }
 
     .profile__data-container{
@@ -275,6 +295,12 @@ body{
 /* -------- PORTFOLIO QUERIES  -------- */
 
 @container portfolio (min-width: 600px){
+    .portfolio__project{
+        animation: aparecer both;
+        animation-timeline: view();
+        animation-range: cover 10% cover 30%;
+    }
+
     .portfolio__project-container{
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     }
@@ -334,7 +360,13 @@ body{
 
 /* -------- CONTACT QUERIES  -------- */
 
-@container form (min-width:600px){
+@media screen and (min-width:600px){
+    .form__form, .form h2{
+        animation: aparecer both;
+        animation-timeline: view();
+        animation-range: cover 20% contain 40%;
+    }
+
     .form__form{
         grid-template-columns: 1fr 1fr;
         grid-template-areas: "name lastname" "email email" "message message" "button button";
@@ -368,4 +400,50 @@ body{
     text-align: center;
     background-color: #00313f;
     color: #d4e0ff;
+}
+
+/* -------- FOOTER END  -------- */
+
+/* -------- ANIMACIONES  -------- */
+
+@keyframes adapt-nav {
+    0%{
+        padding: 13px 0;
+        background-color: #fff;
+    }
+    100%{
+        padding: 0px 0;
+        background-color: #fffa;
+        color: rgb(20, 60, 120);
+    }
+}
+
+@keyframes logo {
+    0%{
+        translate: 30px;
+        scale: 2;
+    }
+    100%{
+        translate: 0px;
+        scale: 1;
+    }
+}
+
+
+@keyframes aparecer {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes background-body {
+    0%{
+        background-color: #fff;
+    }
+    100%{
+        background-color: #00313f;
+    }
 }
